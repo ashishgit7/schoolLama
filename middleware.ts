@@ -5,6 +5,12 @@ const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || "";
 
 export async function middleware(request: NextRequest) {
   // Your middleware logic here
+  const response = NextResponse.next();
+
+  response.headers.set("Access-Control-Allow-Origin", "*"); // Change '*' to a specific domain if needed
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
   try {
     if (request.nextUrl.pathname.startsWith("/api/auth/user")) {
       return NextResponse.next();
