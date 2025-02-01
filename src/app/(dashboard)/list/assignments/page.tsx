@@ -56,7 +56,7 @@ const AssignmentListPage = () => {
           {role === "admin" || role === "teacher" && (
             <>
               <FormModal table="assignment" type="update" data={item} />
-              <FormModal table="assignment" type="delete" id={item.id} />
+              <FormModal table="assignment" type="delete" id={item.id.toString()} />
             </>
           )}
         </div>

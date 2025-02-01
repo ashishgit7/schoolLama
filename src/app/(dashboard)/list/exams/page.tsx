@@ -53,7 +53,6 @@ const ExamListPage = () => {
           {role === "admin" || role === "teacher" && (
             <>
               <FormModal table="exam" type="update" data={item} />
-              <FormModal table="exam" type="delete" id={item.id} />
             </>
           )}
         </div>

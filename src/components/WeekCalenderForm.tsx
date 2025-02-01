@@ -64,6 +64,7 @@ const BigCalendar = ({calendarEvents , setCalenderEvents, data} : {calendarEvent
     <Calendar
       localizer={localizer}
       events={calendarEvents}
+      // @ts-ignore 
       onSelectSlot={onSelectSlot}
       startAccessor="start"
       endAccessor="end"

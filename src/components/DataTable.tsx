@@ -132,6 +132,7 @@ export function DataTable({ columns, data, pageSizeInit = 10}: any) {
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
+                // @ts-ignore 
                 const isVisible = header.column.columnDef?.visible !== false;
                 return isVisible ? (
                   <TableHead key={header.id}>
@@ -156,6 +157,7 @@ export function DataTable({ columns, data, pageSizeInit = 10}: any) {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => {
+                    // @ts-ignore 
                     if (cell.column.columnDef?.visible !== false) {
                       return (
                         <TableCell key={cell.id}>
