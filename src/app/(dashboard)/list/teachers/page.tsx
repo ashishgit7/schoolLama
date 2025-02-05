@@ -64,7 +64,7 @@ const columns = [
       const studentId = row.original.id;
       return (
         <div className="flex items-center gap-2">
-          <Link href={`/list/students/${studentId}`}>
+          <Link href={`/list/teachers/${studentId}`}>
             <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
               <Image src="/view.png" alt="" width={16} height={16} />
             </button>
