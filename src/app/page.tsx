@@ -12,6 +12,7 @@ const Homepage = () => {
   const [showSecondDiv, setShowSecondDiv] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [errorMsg, setErrorMsg] = useState(false);
+  const [errorMsgForWrongCredential, setErrorMsgForWrongCredential] = useState(false);
   const router = useRouter()
 
   useEffect(() => {
@@ -52,10 +53,15 @@ const Homepage = () => {
           'Content-Type': 'application/json',
         }
       });
+      if(response.status === 404){
+        setErrorMsgForWrongCredential(true);
+        return
+      }
       localStorage.setItem('role', response.data.role);
       localStorage.setItem('id', response.data.id);
       router.push('/list/students');      
     } catch (error) {
+      setErrorMsgForWrongCredential(true);
       console.log(error);
     }
   }
@@ -84,24 +90,25 @@ const Homepage = () => {
         <Image src="/logo.png" alt="SchooLama Logo" width={64} height={64} />
           </div>
           <h1 className='text-2xl font-bold text-center mb-6'>Welcome to SchooLama</h1>
-          <form className='space-y-4' onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='email' className='block text-sm font-medium text-gray-700'>Email</label>
-          <input type='email' id='email' name='email' onChange={(e) => setEmail(e.target.value)} required className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lamaPurpleLight focus:border-lamaPurpleLight' />
-        </div>
-        <div>
-          <label htmlFor='password' className='block text-sm font-medium text-gray-700'>Password</label>
-          <input type='password' id='password' onChange={(e) => setPassword(e.target.value)} name='password' required className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lamaPurpleLight focus:border-lamaPurpleLight' />
-        </div>
-        <div>
-          <button type='submit' className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-800 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lamaPurple'>
+            <form className='space-y-4' onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='email' className='block text-sm font-medium text-gray-700'>Email</label>
+            <input type='email' id='email' name='email' onChange={(e) => setEmail(e.target.value)} required className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lamaPurpleLight focus:border-lamaPurpleLight' />
+          </div>
+          <div>
+            <label htmlFor='password' className='block text-sm font-medium text-gray-700'>Password</label>
+            <input type='password' id='password' onChange={(e) => setPassword(e.target.value)} name='password' required className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-lamaPurpleLight focus:border-lamaPurpleLight' />
+          </div>
+          {errorMsgForWrongCredential && <p className='text-red-500 mb-2'>Incorrect username or password</p>}
+          <div>
+            <button type='submit' className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-slate-800 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lamaPurple'>
             Log in
-          </button>
-          <button type='button' onClick={() => setShowSecondDiv(true)} className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium mt-4 text-white bg-red-800 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lamaPurple'>
+            </button>
+            <button type='button' onClick={() => setShowSecondDiv(true)} className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium mt-4 text-white bg-red-800 hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lamaPurple'>
             Forget password
-          </button>
-        </div>
-          </form>
+            </button>
+          </div>
+            </form>
         </div>
         <div className={`bg-white p-8 rounded-lg shadow-md w-96 absolute top-0 transition-transform duration-500 ${showSecondDiv ? 'translate-x-0' : 'translate-x-full invisible'}`}>
           <div className='flex justify-center mb-6'>
